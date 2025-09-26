@@ -4,11 +4,11 @@ import { ArrowDown, ArrowUp, ArrowUpDown, MoreVertical } from 'lucide-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type EstatusType = 'Activo' | 'Inactivo';
-const StatusBadge: React.FC<{ estatus: EstatusType }> = ({ estatus }) => {
-    const styles = { 'Activo': 'bg-sa-success-bg text-sa-success', 'Inactivo': 'bg-sa-warning-bg text-sa-warning' };
-    return <span className={`px-3 py-1 text-xs font-semibold rounded-md ${styles[estatus]}`}>{estatus}</span>;
-};
+// type EstatusType = 'Activo' | 'Inactivo';
+// const StatusBadge: React.FC<{ estatus: EstatusType }> = ({ estatus }) => {
+//     const styles = { 'Activo': 'bg-sa-success-bg text-sa-success', 'Inactivo': 'bg-sa-warning-bg text-sa-warning' };
+//     return <span className={`px-3 py-1 text-xs font-semibold rounded-md ${styles[estatus]}`}>{estatus}</span>;
+// };
 
 const mockUsuariosData = [
     {
@@ -48,10 +48,10 @@ const tableHeaders: { key: UsuarioKey | 'actions'; label: string; sortable: bool
 const CFDIS: React.FC = () => {
     const navigate = useNavigate();
     const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
-    const [modalState, setModalState] = useState<{ type: 'activate' | 'deactivate' | 'delete' | null; user: Usuario | null }>({ type: null, user: null });
+    // const [_, setModalState] = useState<{ type: 'activate' | 'deactivate' | 'delete' | null; user: Usuario | null }>({ type: null, user: null });
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const [usuarios, setUsuarios] = useState(mockUsuariosData);
+    const [usuarios] = useState(mockUsuariosData);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [searchTerm, setSearchTerm] = useState('');
@@ -124,26 +124,26 @@ const CFDIS: React.FC = () => {
 
     const handleDropdownToggle = (id: string) => setOpenDropdownId(prev => (prev === id ? null : id));
 
-    const handleAction = (type: 'activate' | 'deactivate' | 'delete', user: Usuario) => {
-        setModalState({ type, user });
-        setOpenDropdownId(null);
-    };
+    // const handleAction = (type: 'activate' | 'deactivate' | 'delete', user: Usuario) => {
+    //     setModalState({ type, user });
+    //     setOpenDropdownId(null);
+    // };
 
-    const closeModal = () => setModalState({ type: null, user: null });
+    // const closeModal = () => setModalState({ type: null, user: null });
 
-    const handleConfirmAction = () => {
-        if (!modalState.user || !modalState.type) return;
+    // const handleConfirmAction = () => {
+    //     if (!modalState.user || !modalState.type) return;
 
-        if (modalState.type === 'delete') {
-            setUsuarios(prevUsers => prevUsers.filter(u => u.id !== modalState.user!.id));
-        } else {
-            const newStatus = modalState.type === 'activate' ? 'Activo' : 'Inactivo';
-            setUsuarios(prevUsers =>
-                prevUsers.map(u => u.id === modalState.user!.id ? { ...u, estatus: newStatus } : u)
-            );
-        }
-        closeModal();
-    };
+    //     if (modalState.type === 'delete') {
+    //         setUsuarios(prevUsers => prevUsers.filter(u => u.id !== modalState.user!.id));
+    //     } else {
+    //         const newStatus = modalState.type === 'activate' ? 'Activo' : 'Inactivo';
+    //         setUsuarios(prevUsers =>
+    //             prevUsers.map(u => u.id === modalState.user!.id ? { ...u, estatus: newStatus } : u)
+    //         );
+    //     }
+    //     closeModal();
+    // };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

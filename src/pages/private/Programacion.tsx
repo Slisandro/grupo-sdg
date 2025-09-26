@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import Modal from '../ui/Modal';
 import ChangePasswordModal from '../../features/auth/components/ChangePasswordModal';
 import LogoutConfirmationModal from '../../features/auth/components/LogoutConfirmationModal';
-import UsuariosListPage from './CFDIS';
+import Modal from '../ui/Modal';
 import ProgramacionPago from './ProgramacionPago';
 
 const DashboardLayout: React.FC = () => {
