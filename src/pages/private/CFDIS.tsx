@@ -208,19 +208,20 @@ const CFDIS: React.FC = () => {
                                     <td className="p-3 text-[#1E1E1E]">{user.fecha_alta}</td>
                                     <td className="p-3 text-[#1E1E1E]">{user.sucursal}</td>
                                     <td className="p-3 text-[#1E1E1E]">{user.correo}</td>
-                                    <td className="p-3 text-center">
-                                        <div className="relative inline-block" ref={openDropdownId === user.id ? dropdownRef : null}>
-                                            <button onClick={() => handleDropdownToggle(user.id)} className="p-1 rounded-full hover:bg-gray-200"><MoreVertical className="text-gray-500" /></button>
-                                            {openDropdownId === user.id && (
-                                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-gray-200 ring-opacity-5 z-10">
-                                                    <div className="py-1">
-                                                        <button onClick={() => navigate(`/gestion/usuarios/${user.id}`)} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver detalles</button>
-                                                        <button onClick={() => navigate(`/gestion/usuarios/${user.id}`)} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Eliminar ítem</button>
-                                                    </div>
+                                    <td className="p-3 text-center relative">
+                                        <button onClick={() => handleDropdownToggle(user.id)} className="p-1 rounded-full hover:bg-gray-200">
+                                            <MoreVertical className="text-gray-500" />
+                                        </button>
+                                        {openDropdownId === user.id && (
+                                            <div className="fixed right-24 top-[calc(50%+50px)] w-48 bg-white rounded-md shadow-lg ring-1 ring-gray-200 ring-opacity-5 z-50">
+                                                <div className="py-1">
+                                                    <button onClick={() => navigate(`/gestion/usuarios/${user.id}`)} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver detalles</button>
+                                                    <button onClick={() => navigate(`/gestion/usuarios/${user.id}`)} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Eliminar ítem</button>
                                                 </div>
-                                            )}
-                                        </div>
+                                            </div>
+                                        )}
                                     </td>
+
                                 </tr>
                             ))}
                         </tbody>

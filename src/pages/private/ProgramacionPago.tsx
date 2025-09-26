@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowUpDown, ArrowUp, ArrowDown, MoreVertical } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
 
 type EstatusPago = 'Pagado' | 'Programado' | 'Rechazado';
 
@@ -36,15 +35,12 @@ const tableHeaders: { key: UsuarioKey | 'actions'; label: string; sortable: bool
 ];
 
 const ProgramacionPago: React.FC = () => {
-    const navigate = useNavigate();
-    const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const [usuarios, setUsuarios] = useState(mockUsuariosData);
+    const [usuarios] = useState(mockUsuariosData);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortConfig, setSortConfig] = useState<{ key: UsuarioKey; direction: 'ascending' | 'descending' } | null>(null);
-    const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
 
     // Filtrado seguro: convierte todos los valores a string solo si existen
     const filteredItems = useMemo(() => {
@@ -90,26 +86,16 @@ const ProgramacionPago: React.FC = () => {
         return sortConfig.direction === 'ascending' ? <ArrowUp className="inline h-4 w-4 ml-1" /> : <ArrowDown className="inline h-4 w-4 ml-1" />;
     };
 
-    const handleDropdownToggle = (id: string) => setOpenDropdownId(prev => (prev === id ? null : id));
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) setOpenDropdownId(null);
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
     return (
         <div className="space-y-6">
             {/* Header */}
             <div className="flex justify-between items-center">
                 <div className="flex flex-col gap-3">
-                    <p className="text-sm text-sa-text-secondary">Principal / <span className="text-[#F8C00C]">Carga de CFDIs</span></p>
-                    <h1 className="text-2xl font-bold text-[#0F172A]">Carga de CFDIS</h1>
-                    <p className="text-lg text-[#999999]">Lista de usuarios</p>
+                    <p className="text-sm text-sa-text-secondary">Principal / <span className="text-[#F8C00C]">Programación de pagos</span></p>
+                    <h1 className="text-2xl font-bold text-[#0F172A]">Programación de pagos</h1>
+                    <p className="text-lg text-[#999999]">Lista de programación de pagos</p>
                 </div>
-                <button onClick={() => navigate('/gestion/usuarios/nuevo')} className="bg-sa-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-sa-secondary">Cargar archivos</button>
+                {/* <button onClick={() => navigate('/gestion/usuarios/nuevo')} className="bg-sa-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-sa-secondary">Cargar archivos</button> */}
             </div>
 
             {/* Tabla */}
@@ -166,19 +152,6 @@ const ProgramacionPago: React.FC = () => {
                                         ) : (
                                             <span>-</span>
                                         )}
-                                    </td>
-                                    <td className="p-3 text-center whitespace-nowrap">
-                                        <div className="relative inline-block" ref={dropdownRef}>
-                                            <button onClick={() => handleDropdownToggle(user.id)} className="p-1 rounded-full hover:bg-gray-200"><MoreVertical className="text-gray-500" /></button>
-                                            {openDropdownId === user.id && (
-                                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-gray-200 ring-opacity-5 z-10">
-                                                    <div className="py-1">
-                                                        <button onClick={() => navigate(`/gestion/usuarios/${user.id}`)} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver detalles</button>
-                                                        <button onClick={() => setUsuarios(prev => prev.filter(u => u.id !== user.id))} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Eliminar ítem</button>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
                                     </td>
                                 </tr>
                             ))}
