@@ -19,30 +19,33 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ onClose, onCo
                     name="current_password"
                     type="password"
                     placeholder="Ingresa la contraseña que estás usando actualmente."
+                    classNameLabel='text-[#656D9A]'
                 />
                 <Input
                     label="Nueva contraseña"
                     name="new_password"
                     type="password"
                     placeholder="Debe tener al menos 8 caracteres."
+                    classNameLabel='text-[#656D9A]'
                 />
                 <Input
                     label="Confirmar nueva contraseña"
                     name="confirm_new_password"
                     type="password"
                     placeholder="Vuelve a escribir la nueva contraseña."
+                    classNameLabel='text-[#656D9A]'
                 />
             </div>
             <div className="px-6 py-4 bg-gray-50 border-t flex justify-end space-x-3">
                 <button
                     onClick={onClose}
-                    className="bg-gray-200 text-gray-800 px-6 py-2 rounded-md text-sm font-medium hover:bg-gray-300"
+                    className="bg-gray-200 text-gray-800 px-6 py-2 rounded-md text-sm font-medium "
                 >
                     Cancelar
                 </button>
                 <button
                     onClick={onConfirm}
-                    className="bg-[#147AC833] text-[#147AC8] px-6 py-2 rounded-md text-sm font-medium hover:bg-[#147AC8] hover:bg-opacity-20"
+                    className="bg-[#147AC833] text-[#147AC8] px-6 py-2 rounded-md text-sm font-medium"
                 >
                     Actualizar contraseña
                 </button>

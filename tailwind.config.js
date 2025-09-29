@@ -4,6 +4,8 @@ export default {
         extend: {
             fontFamily: {
                 raleway: ["Raleway", "sans-serif"],
+                public: ['"Public Sans"', 'sans-serif'],
+                inter: ['"Inter"', 'sans-serif'],
             },
         },
     },

@@ -1,21 +1,21 @@
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-import CFDISSelectedIcon from "../../public/icons/sidebar/CFDIS selected.png";
-import CFDISIcon from "../../public/icons/sidebar/CFDIS.png";
-import PPSelectedIcon from "../../public/icons/sidebar/PP selected.png";
-import PPIcon from "../../public/icons/sidebar/PP.png";
+import CFDISSelectedIcon from "../../../public/icons/sidebar/CFDIS selected.png";
+import CFDISIcon from "../../../public/icons/sidebar/CFDIS.png";
+import PPSelectedIcon from "../../../public/icons/sidebar/PP selected.png";
+import PPIcon from "../../../public/icons/sidebar/PP.png";
 
 const sidebarItems = [
     {
         name: "Carga de CFDIS",
-        href: "/dashboard",
+        href: "/cfdi",
         icon: CFDISIcon,
         selectedIcon: CFDISSelectedIcon,
     },
     {
         name: "Programación de pago >",
-        href: "/payment-scheduling",
+        href: "/programacion-pagos",
         icon: PPIcon,
         selectedIcon: PPSelectedIcon,
     },
@@ -47,13 +47,14 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                     }`}
             >
                 <div className="p-4 flex justify-center">
-                    <Link to="/dashboard" onClick={handleLinkClick} className="flex items-center space-x-2">
+                    <Link to="/cfdi" onClick={handleLinkClick} className="flex items-center space-x-2">
                         <img src={"/SDG logo.png"} alt="Saucedo Abogados" className="h-[70px] w-auto" />
                         <img src={"/SDG logo 2.png"} alt="Saucedo Abogados" className="h-[70px] w-auto" />
                     </Link>
                 </div>
 
                 <nav className="flex-1 px-4 py-2 space-y-1 overflow-y-auto">
+                    <p className="flex items-center p-2 font-public font-[500] text-[#748892] text-[12px]">Navegación</p>
                     {sidebarItems.map((item) => {
                         return (
                             <NavLink
@@ -61,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                                 to={item.href!}
                                 onClick={handleLinkClick}
                                 className={({ isActive }) =>
-                                    `flex items-center p-2 rounded-md text-sm font-medium transition-colors ${isActive
+                                    `flex items-center p-2 rounded-md text-[14px] font-public text-sm font-[600] ${isActive
                                         ? "text-[#F8C00C]"
                                         : "text-white"
                                     }`
@@ -70,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                                 <img
                                     src={location.pathname === item.href ? item.selectedIcon : item.icon}
                                     alt={item.name}
-                                    className="mr-3 w-6 h-6"
+                                    className="mr-3 w-[20px] h-[20px] object-contain"
                                 />
                                 {item.name}
                             </NavLink>

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import Header from '../../components/Header';
+import { Outlet, useNavigate } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Header from './Header';
+import Modal from '../ui/Modal';
 import ChangePasswordModal from '../../features/auth/components/ChangePasswordModal';
 import LogoutConfirmationModal from '../../features/auth/components/LogoutConfirmationModal';
-import Modal from '../ui/Modal';
 
 const DashboardLayout: React.FC = () => {
-    const [sidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
     const navigate = useNavigate();
 
     const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
@@ -24,25 +25,18 @@ const DashboardLayout: React.FC = () => {
     };
 
     return (
-        <div className="relative min-h-screen w-screen h-screen flex bg-gray-100">
-            {/* Sidebar fijo a la izquierda */}
-            {/* <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> */}
+        <div className="relative min-h-screen bg-sa-background bg-white">
+            <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-            {/* Contenedor principal (ocupa el resto del ancho) */}
-            <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarOpen ? 'md:ml-64' : 'md:ml-0'}`}>
-                {/* Header fijo arriba */}
-                {/* <Header
+            <div className={`flex flex-col transition-all duration-300 ${sidebarOpen ? 'md:ml-64' : 'md:ml-0'}`}>
+                <Header
                     setSidebarOpen={setSidebarOpen}
                     onOpenChangePasswordModal={() => setChangePasswordModalOpen(true)}
                     onOpenLogoutModal={() => setLogoutModalOpen(true)}
-                /> */}
-
-                {/* Contenido principal */}
-                {/* <main className="flex-1 overflow-y-auto bg-white p-6 transition-all duration-300">
-                    <div className="max-w-6xl mx-auto w-full">
-                        <ProgramacionPago />
-                    </div>
-                </main> */}
+                />
+                <main>
+                    <Outlet /> {/* Aquí se renderizarán las páginas del dashboard */}
+                </main>
             </div>
 
             {/* Modales */}
@@ -51,8 +45,7 @@ const DashboardLayout: React.FC = () => {
                 onClose={() => setChangePasswordModalOpen(false)}
                 title="Cambia tu contraseña"
                 size="sm"
-                headerBg="bg-[#147AC8]"
-                headerTextColor="text-white"
+                headerBg='bg-[#147AC8]'
             >
                 <ChangePasswordModal
                     onClose={() => setChangePasswordModalOpen(false)}
@@ -65,8 +58,7 @@ const DashboardLayout: React.FC = () => {
                 onClose={() => setLogoutModalOpen(false)}
                 title="Confirmación de cierre de sesión"
                 size="sm"
-                headerBg="bg-[#E33131]"
-                headerTextColor="text-white"
+                headerBg='bg-[#E33131]'
             >
                 <LogoutConfirmationModal
                     onClose={() => setLogoutModalOpen(false)}

@@ -7,6 +7,9 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     name: string;
     register?: UseFormRegisterReturn;
     error?: string;
+    classNameLabel?: string;
+    className?: string;
+    classNameContainer?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -17,6 +20,8 @@ const Input: React.FC<InputProps> = ({
     register,
     error,
     className = "",
+    classNameLabel = "",
+    classNameContainer = "",
     ...rest
 }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -28,14 +33,14 @@ const Input: React.FC<InputProps> = ({
     const inputType = type === "password" && isPasswordVisible ? "text" : type;
 
     return (
-        <div>
+        <div className={classNameContainer}>
             <label
                 htmlFor={name}
-                className="block text-xs font-medium text-[#9499a4] mb-1"
+                className={`block text-xs mb-1 ${classNameLabel}`}
             >
                 {label}
             </label>
-            {/* ---  Contenedor relativo para posicionar el icono --- */}
+
             <div className="relative">
                 <input
                     id={name}
@@ -43,8 +48,7 @@ const Input: React.FC<InputProps> = ({
                     type={inputType}
                     placeholder={placeholder}
                     className={`w-full px-3 py-2.5 text-sm border rounded-md
-                        focus:outline-none focus:ring-1 text-[#9499a4]
-                        disabled:cursor-not-allowed
+                        focus:outline-none focus:ring-1 disabled:cursor-not-allowed
                         ${error ? "border-sa-danger" : "border-[#E3EBF6]"}
                         ${rest.disabled && !className.includes("bg-")
                             ? "bg-gray-100"
@@ -55,12 +59,12 @@ const Input: React.FC<InputProps> = ({
                     {...register}
                     {...rest}
                 />
-                {/* ---  Botón para mostrar/ocultar contraseña --- */}
+
                 {type === "password" && (
                     <button
                         type="button"
                         onClick={togglePasswordVisibility}
-                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                        className="absolute inset-y-0 right-0 flex items-center pr-3"
                         title={
                             isPasswordVisible ? "Ocultar contraseña" : "Mostrar contraseña"
                         }

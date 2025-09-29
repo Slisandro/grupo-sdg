@@ -6,11 +6,11 @@ export default function ChangePassword() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    const handleLogin = () => 
+    const handleLogin = () =>
         navigate("/");
 
     return (
-        <div className="w-screen h-screen items-center justify-evenly bg-cover bg-center flex flex-col" style={{ backgroundImage: "url('/Bg Auth.png')" }}>
+        <div className="w-full h-full items-center justify-evenly flex flex-col">
             <div
                 className="w-full max-w-md p-8 rounded-2xl shadow-xl border border-white/10 backdrop-blur-md"
                 style={{
